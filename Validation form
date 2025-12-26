@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 480px;
+        }
+        
+        h1 {
+            color: #1d1d1f;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            color: #1d1d1f;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        label::after {
+            content: " *";
+            color: #ff3b30;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #d1d1d6;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #007AFF;
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+        
+        input.error {
+            border-color: #ff3b30;
+        }
+        
+        input.success {
+            border-color: #34c759;
+        }
+        
+        .error-message {
+            color: #ff3b30;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+            line-height: 1.4;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .hint {
+            color: #8e8e93;
+            font-size: 13px;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+        
+        .terms-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        
+        .terms-group label {
+            margin-bottom: 0;
+            font-weight: normal;
+            font-size: 15px;
+            line-height: 1.4;
+            cursor: pointer;
+        }
+        
+        .terms-group label::after {
+            content: " *";
+            color: #ff3b30;
+        }
+        
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #007AFF;
+        }
+        
+        .checkbox-error {
+            margin-top: 8px;
+        }
+        
+        button {
+            width: 100%;
+            background: #007AFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+        
+        button:hover {
+            background: #0056CC;
+            transform: translateY(-1px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .phone-format {
+            color: #8e8e93;
+            font-size: 14px;
+            position: absolute;
+            right: 16px;
+            top: 40px;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 24px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registration Form</h1>
+        
+        <form id="registrationForm" novalidate>
+            <!-- Full Name Field -->
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name">
+                <div class="error-message" id="fullNameError">Name must be at least 2 characters long</div>
+            </div>
+            
+            <!-- Email Address Field -->
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address">
+                <div class="error-message" id="emailError">Please enter a valid email address</div>
+            </div>
+            
+            <!-- Password Field -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Create a password">
+                <div class="hint">Password must be at least 8 characters</div>
+                <div class="error-message" id="passwordError">
+                    Password must contain at least 8 characters with uppercase, lowercase, and number
+                </div>
+            </div>
+            
+            <!-- Confirm Password Field -->
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password">
+                <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+            </div>
+            
+            <!-- Age Field -->
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" placeholder="Enter your age" min="13" max="120">
+                <div class="error-message" id="ageError">Age must be between 13 and 120</div>
+            </div>
+            
+            <!-- Phone Number Field -->
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="123-456-7890" 
+                       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                <span class="phone-format">123-456-7890</span>
+                <div class="error-message" id="phoneError">Phone number must be in format: 123-456-7890</div>
+            </div>
+            
+            <!-- Terms and Conditions -->
+            <div class="form-group">
+                <div class="terms-group">
+                    <input type="checkbox" id="terms" name="terms">
+                    <label for="terms">I agree to the terms and conditions</label>
+                </div>
+                <div class="error-message checkbox-error" id="termsError">You must accept the terms and conditions</div>
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registrationForm');
+            
+            // Validation functions
+            const showError = (input, message) => {
+                const errorElement = document.getElementById(input.id + 'Error');
+                input.classList.remove('success');
+                input.classList.add('error');
+                if (errorElement) {
+                    errorElement.textContent = message;
+                    errorElement.classList.add('show');
+                }
+            };
+            
+            const showSuccess = (input) => {
+                const errorElement = document.getElementById(input.id + 'Error');
+                input.classList.remove('error');
+                input.classList.add('success');
+                if (errorElement) {
+                    errorElement.classList.remove('show');
+                }
+            };
+            
+            const validateName = (nameInput) => {
+                const name = nameInput.value.trim();
+                if (name === '') {
+                    showError(nameInput, 'Full name is required');
+                    return false;
+                }
+                if (name.length < 2) {
+                    showError(nameInput, 'Name must be at least 2 characters long');
+                    return false;
+                }
+                showSuccess(nameInput);
+                return true;
+            };
+            
+            const validateEmail = (emailInput) => {
+                const email = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                if (email === '') {
+                    showError(emailInput, 'Email address is required');
+                    return false;
+                }
+                if (!emailRegex.test(email)) {
+                    showError(emailInput, 'Please enter a valid email address');
+                    return false;
+                }
+                showSuccess(emailInput);
+                return true;
+            };
+            
+            const validatePassword = (passwordInput) => {
+                const password = passwordInput.value;
+                
+                if (password === '') {
+                    showError(passwordInput, 'Password is required');
+                    return false;
+                }
+                if (password.length < 8) {
+                    showError(passwordInput, 'Password must be at least 8 characters');
+                    return false;
+                }
+                if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
+                    showError(passwordInput, 'Password must contain uppercase, lowercase, and number');
+                    return false;
+                }
+                showSuccess(passwordInput);
+                return true;
+            };
+            
+            const validateConfirmPassword = (passwordInput, confirmInput) => {
+                const confirmPassword = confirmInput.value;
+                
+                if (confirmPassword === '') {
+                    showError(confirmInput, 'Please confirm your password');
+                    return false;
+                }
+                if (confirmPassword !== passwordInput.value) {
+                    showError(confirmInput, 'Passwords do not match');
+                    return false;
+                }
+                showSuccess(confirmInput);
+                return true;
+            };
+            
+            const validateAge = (ageInput) => {
+                const age = parseInt(ageInput.value);
+                
+                if (ageInput.value === '') {
+                    showError(ageInput, 'Age is required');
+                    return false;
+                }
+                if (isNaN(age) || age < 13 || age > 120) {
+                    showError(ageInput, 'Age must be between 13 and 120');
+                    return false;
+                }
+                showSuccess(ageInput);
+                return true;
+            };
+            
+            const validatePhone = (phoneInput) => {
+                const phone = phoneInput.value.trim();
+                const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+                
+                // Phone is optional, but if provided, must be valid
+                if (phone && !phoneRegex.test(phone)) {
+                    showError(phoneInput, 'Phone number must be in format: 123-456-7890');
+                    return false;
+                }
+                showSuccess(phoneInput);
+                return true;
+            };
+            
+            const validateTerms = (termsInput) => {
+                if (!termsInput.checked) {
+                    const errorElement = document.getElementById('termsError');
+                    errorElement.classList.add('show');
+                    return false;
+                }
+                const errorElement = document.getElementById('termsError');
+                errorElement.classList.remove('show');
+                return true;
+            };
+            
+            // Real-time validation on input
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    switch(this.id) {
+                        case 'fullName':
+                            validateName(this);
+                            break;
+                        case 'email':
+                            validateEmail(this);
+                            break;
+                        case 'password':
+                            validatePassword(this);
+                            // Also validate confirm password if it has value
+                            const confirmInput = document.getElementById('confirmPassword');
+                            if (confirmInput.value) {
+                                validateConfirmPassword(this, confirmInput);
+                            }
+                            break;
+                        case 'confirmPassword':
+                            const passwordInput = document.getElementById('password');
+                            validateConfirmPassword(passwordInput, this);
+                            break;
+                        case 'age':
+                            validateAge(this);
+                            break;
+                        case 'phone':
+                            validatePhone(this);
+                            break;
+                    }
+                });
+                
+                input.addEventListener('input', function() {
+                    // Clear error as user types
+                    if (this.classList.contains('error')) {
+                        const errorElement = document.getElementById(this.id + 'Error');
+                        if (errorElement) {
+                            errorElement.classList.remove('show');
+                        }
+                        this.classList.remove('error');
+                    }
+                    
+                    // Special case for confirm password
+                    if (this.id === 'password') {
+                        const confirmInput = document.getElementById('confirmPassword');
+                        if (confirmInput.value && confirmInput.value !== this.value) {
+                            const errorElement = document.getElementById('confirmPasswordError');
+                            if (errorElement) {
+                                errorElement.textContent = 'Passwords do not match';
+                                errorElement.classList.add('show');
+                            }
+                            confirmInput.classList.add('error');
+                        } else if (confirmInput.value && confirmInput.value === this.value) {
+                            const errorElement = document.getElementById('confirmPasswordError');
+                            if (errorElement) {
+                                errorElement.classList.remove('show');
+                            }
+                            confirmInput.classList.remove('error');
+                            confirmInput.classList.add('success');
+                        }
+                    }
+                    
+                    // For terms checkbox
+                    if (this.id === 'terms') {
+                        validateTerms(this);
+                    }
+                });
+            });
+            
+            // Format phone number as user types
+            const phoneInput = document.getElementById('phone');
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                
+                if (value.length > 3 && value.length <= 6) {
+                    value = value.slice(0, 3) + '-' + value.slice(3);
+                } else if (value.length > 6) {
+                    value = value.slice(0, 3) + '-' + value.slice(3, 6) + '-' + value.slice(6, 10);
+                }
+                
+                e.target.value = value;
+            });
+            
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const nameInput = document.getElementById('fullName');
+                const emailInput = document.getElementById('email');
+                const passwordInput = document.getElementById('password');
+                const confirmInput = document.getElementById('confirmPassword');
+                const ageInput = document.getElementById('age');
+                const phoneInput = document.getElementById('phone');
+                const termsInput = document.getElementById('terms');
+                
+                const isNameValid = validateName(nameInput);
+                const isEmailValid = validateEmail(emailInput);
+                const isPasswordValid = validatePassword(passwordInput);
+                const isConfirmValid = validateConfirmPassword(passwordInput, confirmInput);
+                const isAgeValid = validateAge(ageInput);
+                const isPhoneValid = validatePhone(phoneInput);
+                const isTermsValid = validateTerms(termsInput);
+                
+                if (isNameValid && isEmailValid && isPasswordValid && 
+                    isConfirmValid && isAgeValid && isPhoneValid && isTermsValid) {
+                    
+                    // Collect form data
+                    const formData = {
+                        fullName: nameInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        password: passwordInput.value,
+                        age: parseInt(ageInput.value),
+                        phone: phoneInput.value.trim() || null,
+                        termsAccepted: termsInput.checked
+                    };
+                    
+                    console.log('Form submitted successfully:', formData);
+                    
+                    // Show success message
+                    alert('Registration successful! Check console for form data.');
+                    
+                    // Reset form
+                    form.reset();
+                    
+                    // Remove validation classes
+                    inputs.forEach(input => {
+                        input.classList.remove('success', 'error');
+                        const errorElement = document.getElementById(input.id + 'Error');
+                        if (errorElement) {
+                            errorElement.classList.remove('show');
+                        }
+                    });
+                    
+                    // Hide terms error
+                    document.getElementById('termsError').classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
